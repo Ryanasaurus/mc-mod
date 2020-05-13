@@ -1,10 +1,14 @@
 package com.ryanasaurus.ryanmod;
 
+import com.ryanasaurus.ryanmod.blocks.ModBlocks;
+import com.ryanasaurus.ryanmod.blocks.RyanBlock;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
 import com.ryanasaurus.ryanmod.setup.IProxy;
 import com.ryanasaurus.ryanmod.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,7 +49,7 @@ public class RyanMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        
+
     }
 
 //    private void doClientStuff(final FMLClientSetupEvent event) {
@@ -80,8 +84,13 @@ public class RyanMod {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
+            event.getRegistry().register(new RyanBlock());
+        }
 
+        @SubscribeEvent
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
+            event.getRegistry().register(new BlockItem(ModBlocks.RYANBLOCK, new Item.Properties()).setRegistryName("ryanblock"));
         }
     }
 }

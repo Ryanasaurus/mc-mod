@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: mc-mod
+Implementation-Version: 0.0.1.null
+Specification-Vendor: examplemodsareus
+Specification-Title: ryanmod
+Implementation-Timestamp: 2020-05-13T17:12:06+1200
+Specification-Version: 1
+Implementation-Vendor: examplemodsareus
+
