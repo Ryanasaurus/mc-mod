@@ -4,6 +4,7 @@ import com.ryanasaurus.ryanmod.blocks.ModBlocks;
 import com.ryanasaurus.ryanmod.blocks.RyanBlock;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
 import com.ryanasaurus.ryanmod.setup.IProxy;
+import com.ryanasaurus.ryanmod.setup.ModSetup;
 import com.ryanasaurus.ryanmod.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -32,6 +33,8 @@ public class RyanMod {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+    public static ModSetup setup = new ModSetup();
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     public RyanMod() {
@@ -49,7 +52,8 @@ public class RyanMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        setup.init();
+        proxy.init();
     }
 
 //    private void doClientStuff(final FMLClientSetupEvent event) {
@@ -90,7 +94,9 @@ public class RyanMod {
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            event.getRegistry().register(new BlockItem(ModBlocks.RYANBLOCK, new Item.Properties()).setRegistryName("ryanblock"));
+            Item.Properties properties = new Item.Properties()
+                    .group(setup.itemGroup);
+            event.getRegistry().register(new BlockItem(ModBlocks.RYANBLOCK, properties).setRegistryName("ryanblock"));
         }
     }
 }
