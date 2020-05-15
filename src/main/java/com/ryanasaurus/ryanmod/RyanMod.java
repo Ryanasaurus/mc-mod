@@ -2,6 +2,7 @@ package com.ryanasaurus.ryanmod;
 
 import com.ryanasaurus.ryanmod.blocks.ModBlocks;
 import com.ryanasaurus.ryanmod.blocks.RyanBlock;
+import com.ryanasaurus.ryanmod.item.RyanItem;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
 import com.ryanasaurus.ryanmod.setup.IProxy;
 import com.ryanasaurus.ryanmod.setup.ModSetup;
@@ -97,6 +98,7 @@ public class RyanMod {
             Item.Properties properties = new Item.Properties()
                     .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.RYANBLOCK, properties).setRegistryName("ryanblock"));
+            event.getRegistry().register(new RyanItem());
         }
     }
 }
