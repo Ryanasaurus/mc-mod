@@ -1,6 +1,12 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube",
   "textures": {
-    "all": "ryanmod:block/ryanblock"
+    "particle": "ryanmod:block/ryanblock",
+    "down": "ryanmod:block/ryanblock_bottom",
+    "up": "ryanmod:block/ryanblock_top",
+    "east": "ryanmod:block/ryanblock",
+    "west": "ryanmod:block/ryanblock",
+    "north": "ryanmod:block/ryanblock_front",
+    "south": "ryanmod:block/ryanblock"
   }
 }

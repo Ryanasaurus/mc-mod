@@ -2,6 +2,7 @@ package com.ryanasaurus.ryanmod;
 
 import com.ryanasaurus.ryanmod.blocks.ModBlocks;
 import com.ryanasaurus.ryanmod.blocks.RyanBlock;
+import com.ryanasaurus.ryanmod.blocks.tileentity.RyanBlockTile;
 import com.ryanasaurus.ryanmod.item.RyanItem;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
 import com.ryanasaurus.ryanmod.setup.IProxy;
@@ -11,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -99,6 +101,11 @@ public class RyanMod {
                     .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.RYANBLOCK, properties).setRegistryName("ryanblock"));
             event.getRegistry().register(new RyanItem());
+        }
+
+        @SubscribeEvent
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+            event.getRegistry().register(TileEntityType.Builder.create(RyanBlockTile::new, ModBlocks.RYANBLOCK).build(null).setRegistryName("ryanblock"));
         }
     }
 }

@@ -1,5 +1,10 @@
 {
   "variants": {
-    "": { "model": "ryanmod:block/ryanblock" }
+    "facing=north": { "model": "ryanmod:block/ryanblock" },
+    "facing=south": { "model": "ryanmod:block/ryanblock", "y": 180 },
+    "facing=west": { "model": "ryanmod:block/ryanblock", "y": 270 },
+    "facing=east": { "model": "ryanmod:block/ryanblock", "y": 90 },
+    "facing=up": { "model": "ryanmod:block/ryanblock", "x": -90 },
+    "facing=down": { "model": "ryanmod:block/ryanblock", "x": 90 }
   }
 }
