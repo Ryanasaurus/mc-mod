@@ -12,10 +12,9 @@ public class ModCommands {
         LiteralCommandNode<CommandSource> ryanCommand = dispatcher.register(
                 Commands.literal(RyanMod.MODID)
                         .then(CommandTest.register(dispatcher))
+                        .then(CommandTpDim.register(dispatcher))
                         .then(CommandSpawner.register(dispatcher))
         );
-
-        dispatcher.register(Commands.literal("tut").redirect(ryanCommand));
     }
 
 }

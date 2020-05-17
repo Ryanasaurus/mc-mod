@@ -4,17 +4,21 @@ import com.ryanasaurus.ryanmod.blocks.ModBlocks;
 import com.ryanasaurus.ryanmod.blocks.RyanBlock;
 import com.ryanasaurus.ryanmod.blocks.container.RyanBlockContainer;
 import com.ryanasaurus.ryanmod.blocks.tileentity.RyanBlockTile;
+import com.ryanasaurus.ryanmod.dimension.RyanModDimension;
+import com.ryanasaurus.ryanmod.dimension.neooverworld.NeoOverworldDimension;
 import com.ryanasaurus.ryanmod.item.RyanItem;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
 import com.ryanasaurus.ryanmod.setup.IProxy;
 import com.ryanasaurus.ryanmod.setup.ModSetup;
 import com.ryanasaurus.ryanmod.setup.ServerProxy;
+import jdk.nashorn.internal.runtime.regexp.RegExp;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,6 +28,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.ryanasaurus.ryanmod.dimension.ModDimensions.DIMENSION_ID;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -112,6 +118,11 @@ public class RyanMod {
                 BlockPos pos = data.readBlockPos();
                 return new RyanBlockContainer(windowId, RyanMod.proxy.getClientWorld(), pos, inv, RyanMod.proxy.getClientPlayer());
             }).setRegistryName("ryanblock"));
+        }
+
+        @SubscribeEvent
+        public static void registerModDimensions(final RegistryEvent.Register<ModDimension> event) {
+            event.getRegistry().register(new RyanModDimension().setRegistryName(DIMENSION_ID));
         }
     }
 }
