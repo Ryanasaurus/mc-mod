@@ -2,6 +2,7 @@ package com.ryanasaurus.ryanmod;
 
 import com.ryanasaurus.ryanmod.blocks.ModBlocks;
 import com.ryanasaurus.ryanmod.blocks.RyanBlock;
+import com.ryanasaurus.ryanmod.blocks.container.RyanBlockContainer;
 import com.ryanasaurus.ryanmod.blocks.tileentity.RyanBlockTile;
 import com.ryanasaurus.ryanmod.item.RyanItem;
 import com.ryanasaurus.ryanmod.setup.ClientProxy;
@@ -9,30 +10,27 @@ import com.ryanasaurus.ryanmod.setup.IProxy;
 import com.ryanasaurus.ryanmod.setup.ModSetup;
 import com.ryanasaurus.ryanmod.setup.ServerProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("ryanmod")
 public class RyanMod {
+
+    public static final String MODID = "ryanmod";
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
@@ -106,6 +104,14 @@ public class RyanMod {
         @SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
             event.getRegistry().register(TileEntityType.Builder.create(RyanBlockTile::new, ModBlocks.RYANBLOCK).build(null).setRegistryName("ryanblock"));
+        }
+
+        @SubscribeEvent
+        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event) {
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                return new RyanBlockContainer(windowId, RyanMod.proxy.getClientWorld(), pos, inv, RyanMod.proxy.getClientPlayer());
+            }).setRegistryName("ryanblock"));
         }
     }
 }

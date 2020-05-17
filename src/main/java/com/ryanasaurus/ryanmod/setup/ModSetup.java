@@ -1,8 +1,10 @@
 package com.ryanasaurus.ryanmod.setup;
 
 import com.ryanasaurus.ryanmod.blocks.ModBlocks;
+import com.ryanasaurus.ryanmod.network.Networking;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ModSetup {
 
@@ -14,7 +16,8 @@ public class ModSetup {
     };
 
     public void init() {
-
+        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers());
+        Networking.registerMessages();
     }
 
 }
